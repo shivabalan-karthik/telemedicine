@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tele Lectus — Clinical Monitoring Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css?v=15">
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-logo">🏥</div>
+      <div class="brand-text-block" id="brand-text-block" title="TELEMEDICINE AAL — Multi-Modal Biomedical DSP &amp; Hybrid Moore-EFSM Platform">
+        <div class="brand-title french-script">Tele Lectus</div>
+        <div class="brand-hover-detail">
+          <div class="hover-title">TELEMEDICINE AAL</div>
+          <div class="hover-subtitle">Multi-Modal Biomedical DSP &amp; Hybrid Moore-EFSM Platform</div>
+        </div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div id="user-status" class="user-badge hidden">
+        <span class="status-dot"></span>
+        <span id="user-display-name">Not Logged In</span>
+      </div>
+      <button id="btn-logout" class="btn btn-secondary hidden">Logout</button>
+    </div>
+  </header>
+
+  <!-- 1. LANDING PAGE: ROLE SELECTION -->
+  <div id="view-landing" class="landing-container">
+    <div class="hero-tag">Ambient Assisted Living Telemedicine Portal</div>
+    <h1 class="hero-title">Wearable-Free Bed Monitoring &amp; <span>Diagnostic Intelligence</span></h1>
+    <p class="hero-desc">
+      Real-time 4-sensor biomedical DSP fusion platform supporting HL7 CDA Clinical Telemetry Documents, 
+      autonomic crisis detection, and physician prescription dispatch.
+    </p>
+
+    <div class="role-cards-grid">
+      <!-- Doctor Role Card -->
+      <div class="role-card doctor" id="card-doctor-role" onclick="openDoctorLogin(event)">
+        <div class="role-icon">🩺</div>
+        <div class="role-name">Doctor / Clinician Portal</div>
+        <div class="role-desc">Monitor multi-patient smart bed cohorts, review HL7 CDA XML &amp; bio-signal telemetry, and dispatch targeted clinical advice.</div>
+        <ul class="role-features">
+          <li>Multi-Patient Status &amp; Risk Overview Dashboard</li>
+          <li>Clinician Session Report &amp; 4-Channel Bio-Signal Oscilloscope</li>
+          <li>HL7 CDA R2 XML &amp; HL7 v2 Message Reader</li>
+          <li>Targeted Patient Advice &amp; Emergency Intervention Dispatcher</li>
+        </ul>
+        <button id="btn-open-doctor-login" class="btn btn-primary" style="margin-top: 1.5rem; width: 100%; pointer-events: auto;" onclick="openDoctorLogin(event)">Doctor Login →</button>
+      </div>
+
+      <!-- Patient Role Card -->
+      <div class="role-card patient" id="card-patient-role" onclick="openPatientLogin(event)">
+        <div class="role-icon">🛌</div>
+        <div class="role-name">Patient Portal</div>
+        <div class="role-desc">View daily health monitoring logs, triggered telemetry event summaries, and prescribed care instructions from your doctor.</div>
+        <ul class="role-features">
+          <li>Daily Non-Invasive Telemetry Log Viewer</li>
+          <li>Triggered Health Anomaly Event History</li>
+          <li>Attending Physician Advice &amp; Prescription Directives</li>
+          <li>Patient-Friendly Health Metrics Breakdown</li>
+        </ul>
+        <button id="btn-open-patient-login" class="btn btn-patient" style="margin-top: 1.5rem; width: 100%; pointer-events: auto;" onclick="openPatientLogin(event)">Patient Login →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCTOR LOGIN MODAL -->
+  <div id="modal-doctor-login" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button class="modal-close">&times;</button>
+      <div class="modal-header">
+        <div class="modal-title">Doctor Login</div>
+        <div class="modal-subtitle">Enter your employee email credentials to access clinical dashboards</div>
+      </div>
+      <form id="form-doctor-login">
+        <div class="form-group">
+          <label class="form-label">Employee Email ID</label>
+          <input type="email" id="doc-email" class="form-input" placeholder="dr.smith@telemed-aal.org" required value="dr.smith@telemed-aal.org">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="doc-pass" class="form-input" placeholder="••••••••" required value="DocPass2026!">
+        </div>
+        <div class="form-options">
+          <label style="display: flex; align-items: center; gap: 0.4rem; color: var(--text-muted); cursor: pointer;">
+            <input type="checkbox" checked> Remember Me
+          </label>
+          <a id="link-forgot-pass" class="forgot-link" href="javascript:void(0)">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Access Doctor Portal</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FORGOT PASSWORD MODAL -->
+  <div id="modal-forgot-pass" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button class="modal-close">&times;</button>
+      <div class="modal-header">
+        <div class="modal-title">Reset Password</div>
+        <div class="modal-subtitle">Enter your employee email to receive a secure reset link</div>
+      </div>
+      <form id="form-forgot-pass">
+        <div class="form-group">
+          <label class="form-label">Employee Email ID</label>
+          <input type="email" class="form-input" placeholder="dr.smith@telemed-aal.org" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Reset Instruction</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- PATIENT LOGIN MODAL -->
+  <div id="modal-patient-login" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button class="modal-close">&times;</button>
+      <div class="modal-header">
+        <div class="modal-title">Patient Login</div>
+        <div class="modal-subtitle">Enter your Patient Name and Password</div>
+      </div>
+      <form id="form-patient-login">
+        <div class="form-group">
+          <label class="form-label">User ID (Patient Name)</label>
+          <input type="text" id="patient-name" class="form-input" placeholder="AAL Patient 0042" required value="AAL Patient 0042">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="patient-pass" class="form-input" placeholder="••••••••" required value="PATIENT_AAL_0042_19850412">
+        </div>
+        <button type="submit" class="btn btn-patient" style="width: 100%;">Access Patient Portal</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. DOCTOR PORTAL DASHBOARDS -->
+  <div id="view-doctor-portal" class="dashboard-container hidden">
+
+    <!-- Doctor Portal Scenario Simulation Toolbar (Integrity Verification Panel) -->
+    <div class="doctor-sim-panel" style="background: rgba(15, 23, 42, 0.85); border: 1px solid var(--border-glow); border-radius: var(--radius-md); padding: 0.85rem 1.25rem; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span style="font-size: 1.2rem;">🧪</span>
+        <div>
+          <div style="font-weight: 700; font-size: 0.92rem; color: var(--primary-cyan);">Physiology Scenario Simulator (Doctor System Integrity Verification)</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted);">Target: <strong style="color: #38bdf8;">AAL Patient 0000 (Random Dummy)</strong> | Select scenario &amp; click <strong>Check Now</strong> to inject in real-time</div>
+        </div>
+      </div>
+      <div class="sim-bar-inline" style="display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;">
+        <button class="sim-btn active" data-scenario="baseline">Baseline Sleep</button>
+        <button class="sim-btn" data-scenario="sweat">Sudomotor Sweat</button>
+        <button class="sim-btn" data-scenario="shiver">Nocturnal Shiver</button>
+        <button class="sim-btn" data-scenario="spill">Bed Fluid Spill</button>
+        <button class="sim-btn" data-scenario="shift">Postural Shift</button>
+        <button class="sim-btn" data-scenario="pre_emesis">Pre-Emesis Cascade</button>
+        <button class="sim-btn" data-scenario="emesis">Active Emesis Event</button>
+        <button id="btn-sim-check-now" class="btn btn-primary" title="Inject selected scenario into PATIENT_AAL_0000 (Random Dummy) and inspect" style="margin-left: 0.5rem; padding: 0.42rem 1rem; font-size: 0.82rem; font-weight: 700; background: linear-gradient(135deg, #00f2fe 0%, #0284c7 100%); color: #000; border: none; border-radius: var(--radius-sm); cursor: pointer; display: flex; align-items: center; gap: 0.4rem; box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);">
+          <span>⚡ Check Now</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="dash-nav-tabs">
+      <button class="nav-tab active" data-tab="doc-tab-patients">📊 Dashboard 1: All Patients Status</button>
+      <button class="nav-tab" data-tab="doc-tab-telemetry">📈 Dashboard 2: Telemetry &amp; HL7 Logs</button>
+      <button class="nav-tab" data-tab="doc-tab-advice">✍️ Dashboard 3: Write Doctor Advice</button>
+    </div>
+
+    <!-- Doctor Tab 1: All Patients Grid -->
+    <div id="doc-tab-patients" class="tab-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700;">Smart Bed Monitored Patients Cohort</h2>
+        <div style="font-size: 0.85rem; color: var(--text-muted);">Real-Time Active Cohort: <strong id="cohort-count" style="color: var(--primary-cyan);">4 Monitored Beds</strong></div>
+      </div>
+      <div class="patient-grid" id="patients-cards-container">
+        <!-- Dynamic Patient Cards Injected Here -->
+      </div>
+    </div>
+
+    <!-- Doctor Tab 2: Telemetry Log & Waveform Reader -->
+    <div id="doc-tab-telemetry" class="tab-content hidden">
+      <div class="telemetry-dashboard-layout">
+        <div>
+          <!-- Waveform Canvas Grid -->
+          <div class="section-card">
+            <div class="section-title">
+              <span>Live 4-Channel Bio-Signal Oscilloscope</span>
+              <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                <select id="selected-patient-badge" class="badge badge-surge patient-select-badge" title="Change active patient">
+                  <!-- Dynamic Patients Injected -->
+                </select>
+                <select id="select-telemetry-session" class="form-input" style="padding: 0.35rem 0.6rem; font-size: 0.8rem; background: #1e293b; color: var(--primary-cyan); min-width: 195px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                  <!-- 30 Sessions Injected -->
+                </select>
+              </div>
+            </div>
+            <div class="waveform-grid">
+              <div class="waveform-card">
+                <div class="waveform-card-header">
+                  <span style="color: var(--primary-cyan);">cECG (Cardiac 250Hz)</span>
+                  <span id="label-hr-bpm">95.0 BPM / 75.0 ms</span>
+                </div>
+                <canvas id="canvas-ecg" class="waveform-canvas"></canvas>
+              </div>
+
+              <div class="waveform-card">
+                <div class="waveform-card-header">
+                  <span style="color: var(--accent-purple);">Acoustic (Phono 4kHz)</span>
+                  <span id="label-audio-energy">STE: 0.0250 V²</span>
+                </div>
+                <canvas id="canvas-audio" class="waveform-canvas"></canvas>
+              </div>
+
+              <div class="waveform-card">
+                <div class="waveform-card-header">
+                  <span style="color: var(--status-warning);">Impedance (E-Textile 20Hz)</span>
+                  <span id="label-impedance">14.0 uS (+10.5 uS)</span>
+                </div>
+                <canvas id="canvas-impedance" class="waveform-canvas"></canvas>
+              </div>
+
+              <div class="waveform-card">
+                <div class="waveform-card-header">
+                  <span style="color: var(--status-normal);">Actigraphy (Piezo 50Hz)</span>
+                  <span id="label-actigraphy">0.095 g (Tremor)</span>
+                </div>
+                <canvas id="canvas-actigraphy" class="waveform-canvas"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5-Section Clinician Summary Report Block -->
+          <div class="section-card">
+            <div class="section-title">
+              <span>Clinician Telemetry Session Summary Report</span>
+              <button id="btn-refresh-report" class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.3rem 0.7rem;">Refresh Report</button>
+            </div>
+            <div id="clinician-report-output" class="clinician-report-block">
+              <!-- Rendered Clinician Summary Report -->
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <!-- HL7 CDA R2 XML Reader Panel -->
+          <div class="section-card">
+            <div class="section-title">
+              <span>HL7 CDA Release 2 XML Document</span>
+              <button id="btn-copy-cda" class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.3rem 0.7rem;">Copy XML</button>
+            </div>
+            <div id="hl7-xml-output" class="hl7-xml-block">
+              <!-- Rendered HL7 CDA XML -->
+            </div>
+          </div>
+
+          <!-- HL7 v2 ORU_R01 Panel -->
+          <div class="section-card">
+            <div class="section-title">HL7 v2.5 ORU^R01 Message Stream</div>
+            <div id="hl7-v2-output" class="clinician-report-block" style="height: 180px;">
+              <!-- Rendered HL7 v2 -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doctor Tab 3: Targeted Advice Dispatcher -->
+    <div id="doc-tab-advice" class="tab-content hidden">
+      <div class="section-card advice-form-container">
+        <div class="section-title">Targeted Physician Advice &amp; Prescription Dispatcher</div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+          Dispatch patient-specific clinical directives, medication guidance, or emergency room instructions to any monitored bed.
+        </p>
+
+        <form id="form-dispatch-advice">
+          <div class="form-group advice-patient-select">
+            <label class="form-label">Select Targeted Patient</label>
+            <select id="select-advice-patient" class="form-input" style="background: #1e293b;">
+              <!-- Options Injected -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Physician Advice / Prescription Directives</label>
+            <textarea id="input-advice-text" class="advice-textarea" placeholder="Write clinical instructions (e.g., Patient experiencing sudomotor cold sweat diaphoresis. Keep smart HVAC Fan/AC engaged at 22°C, increase oral hydration, monitor autonomic signs)..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Dispatch Doctor Advice to Patient Portal</button>
+        </form>
+
+        <div class="advice-history-list">
+          <h3 style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">Dispatched Advice Log History</h3>
+          <div id="advice-history-items">
+            <!-- Dispatched Items Injected -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. PATIENT PORTAL DASHBOARDS -->
+  <div id="view-patient-portal" class="dashboard-container hidden">
+    <div class="dash-nav-tabs">
+      <button class="nav-tab active" data-tab="patient-tab-telemetry">🛌 Dashboard 1: My Daily Telemetry Log</button>
+      <button class="nav-tab" data-tab="patient-tab-advice">🩺 Dashboard 2: Doctor's Advice &amp; Care Plan</button>
+    </div>
+
+    <!-- Patient Tab 1: Daily Log Telemetry -->
+    <div id="patient-tab-telemetry" class="tab-content">
+      <div class="patient-dashboard-grid">
+        <div class="section-card">
+          <div class="section-title">My Monitoring Status &amp; Daily Overview</div>
+          <div style="background: rgba(0,0,0,0.2); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.25rem;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">MONITORED BED</div>
+            <div id="patient-my-bed" style="font-size: 1.2rem; font-weight: 700; color: var(--primary-cyan); margin-bottom: 0.75rem;">BED_ALPHA_01</div>
+            
+            <div style="font-size: 0.8rem; color: var(--text-muted);">CURRENT HEALTH STATUS</div>
+            <div id="patient-my-status" class="badge badge-baseline" style="display: inline-block; margin-top: 0.25rem;">BASELINE SLEEP STABLE</div>
+          </div>
+
+          <div style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem;">Today's Biometric Summary:</div>
+          <ul style="list-style: none; font-size: 0.88rem; color: var(--text-muted);">
+            <li style="margin-bottom: 0.5rem;">❤️ <strong>Heart Rhythm:</strong> <span id="patient-val-hr">65.0 BPM (Normal Resting Sleep)</span></li>
+            <li style="margin-bottom: 0.5rem;">💧 <strong>Skin Moisture:</strong> <span id="patient-val-imp">3.50 uS (Dry Comfort Baseline)</span></li>
+            <li style="margin-bottom: 0.5rem;">🏃 <strong>Movement / Tremor:</strong> <span id="patient-val-acc">0.010 g (Resting Body Position)</span></li>
+            <li style="margin-bottom: 0.5rem;">🔊 <strong>Gastric Acoustics:</strong> <span id="patient-val-aud">0.00035 V² (Normal Enteric Rhythm)</span></li>
+          </ul>
+        </div>
+
+        <div class="section-card">
+          <div class="section-title">Triggered Telemetry Events Log</div>
+          <div id="patient-events-history" class="clinician-report-block" style="height: 320px; font-family: var(--font-main);">
+            <!-- Events Log -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patient Tab 2: Doctor Advice Panel -->
+    <div id="patient-tab-advice" class="tab-content hidden">
+      <div class="doctor-advice-callout">
+        <div class="doctor-advice-callout-header">
+          <span>🩺</span>
+          <span>Attending Physician Advice &amp; Care Plan</span>
+        </div>
+        <p style="font-size: 0.9rem; color: #e2e8f0; margin-bottom: 1rem;">
+          Special directives and prescriptions sent directly by your doctor based on real-time bio-signal telemetry.
+        </p>
+
+        <div id="patient-received-advice-container">
+          <!-- Received Doctor Advice Cards Injected -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script charset="utf-8" src="app.js?v=13"></script>
+</body>
+</html>

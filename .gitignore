@@ -1,0 +1,23 @@
+# Large dataset archives & partial downloads (exceeds GitHub 100MB limit)
+*.zip
+*.tar.gz
+*.7z
+*.rar
+*.crdownload
+
+# Databases raw archives
+Databases/**/*.zip
+Databases/**/*.crdownload
+
+# Python cache & build files
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv/
+env/
+
+# Logs & scratch
+logs/
+scratch/
+.system_generated/

@@ -1,0 +1,10 @@
+﻿C:\Users\Kshiv\miniconda3\python.exe :   File "<string>", line 12
+At line:1 char:1
++ C:\Users\Kshiv\miniconda3\python.exe -W ignore -c "
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (  File "<string>", line 12:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    print(f'Line {i}: {codes} | {line.strip()[:80].encode(" ascii\,\replace\).decode()}')
+                                                                                        ^
+SyntaxError: f-string expression part cannot include a backslash
